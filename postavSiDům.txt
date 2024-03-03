@@ -1,0 +1,26 @@
+Netuším, jak se to bude chovat na jiných systémech. Tohle předpokládá, že na počítači je jenom root uživatel, takže se to všechno ukládá do jeho domovské složky
+(v ní jsem to taky kompiloval, takže nevím, jestli tomu nebude vadit jiná cesta k souborům)
+
+Jak postavit Dům (snad to bude fungovat, já s tím docela bojuju xd)
+1. apt-get install xinit xterm (mělo by být tak 229 MB myslím)
+2. apt-get install --no-install-recommends xserver-xephyr (NEINSTALOVAT TY 3 BALÍČKY NAJEDNOU, udělat to jako 2 příkazy, jinak to nefunguje. Nevím proč)
+3. stáhnout si složku DOOM
+4. dát ji do /root/ (takže tam bude složka /root/DOOM/)
+	4.1. to jde třeba udělat přes sdílenou složku -> ve VM zařízení, sdílené složky, nastavení sdílené složky, machine folders, ta ikona s plusem napravo
+	4.2. cesta ke složce na host počítači (u mě třeba C:\Users\Lukáš\Škola\SOS\SharedDir)
+	4.3. další věci není potřeba zaškrtávat nebo vyplňovat, takže dát jen OK a zavřít
+	4.4. v Linuxu si udělat složku, do které se mountne ta z host počítače (třeba mkdir /root/sf)
+	4.5. mount -t vboxsf *jméno složky na hostu* *cesta kam to mountnout* -> v mém případě mount -t vboxsf SharedDir /root/sf
+	4.6. profit, máš přístup do složky na počítači, takže hurá cp -r /root/sf/DOOM /root/DOOM
+5. startx -> zapne grafický server X (nevím proč se tomu říká server, je to hloupé)
+6. když nejde psát, najeď myší směrem k tomu prvnímu řádku v terminálu, potom by to mělo jít
+7. Xephyr :2 -ac -screen 640x480x8 -> to nám zapne další grafické rozhraní uvnitř X grafického rozhraní. Hloupé? Ano. 
+   Ale DOOM potřebuje běžet v monitoru co má jen 8 bitů barev. :2 znamená, že se to bude chovat jako displej č.2
+8. měla by kompletně zčernat obrazovka a nic nereagovat -> zapni si další terminál pomocí ctrl+alt+F2 (F1 je první, F2 druhý, F3...)
+9. přihlaš se
+10. cd /root/DOOM/linuxdoom-1.1O/linux -> jdeme do složky kde je executable DOOMu
+11. export DOOMWADDIR=/root/DOOM/linuxdoom-1.10/linux -> řekneme DOOMu, kde má WAD soubor ve kterém je snad všechno, včetně textur a zvuků
+12. DISPLAY=:2 ./linuxxdoom -> zapneme DOOM executable a řekneme, ať běží v druhém displeji, je to jeden řádek jen s mezerou
+13. Jestli to nevyhodilo žádný error, přepnout do prvního terminálu ctrl+alt+F1 a hurá, dům
+14. Podpisy jsou v hlavním menu v položce "READ THIS", šipkama se chodí, ctrl stříli a space otevírají dveře a mačkají tlačítka
+	

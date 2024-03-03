@@ -1,0 +1,10 @@
+Co se dá odebrat -> jen přemýšlím nahlas, abych o nezapomněl xd
+- grafické ovladače pro X pro cokoliv jiného než je vbox cosi
+- síťování
+- bluetooth
+- všechen python
+- fonty pro X
+- nastavení repozitářů pro apt
+- manuály
+- dočasné soubory
+- na konci smazat celé apt, až nebude potřeba
