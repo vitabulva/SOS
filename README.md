@@ -7,4 +7,7 @@ Praci, kterou provedeme stručně okomentujme, ať v tom můžume hledat chybu, 
 Moje představa je taková, že na začátku script nainstaluje vše potřebné -> zkompiluje dům.
 Poté smaže všechno nepotřebné a nakonec spustí DOOM, abychom vědeli, že je to funkční. 
 
+DŮLEŽITÉ VĚC !! doom.sh!!!
+
+
 Vzhuru do práce nemáme na to celou pětiletku xd.
