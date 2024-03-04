@@ -16,7 +16,7 @@ mount -t $DISK $MOUNTDISK $DOOMPATH
 cat <<< '				
 Xephyr :1 -ac -screen 640x480x8 &
 sleep 2
-export DOOMWADDIR=/root/DOOM/linuxdoom-1.10/linux
+export DOOMWADDIR=/root/DOOM/DOOM/linuxdoom-1.10/linux
 export DISPLAY=:1
 cd $DOOMWADDIR
 ./linuxxdoom
