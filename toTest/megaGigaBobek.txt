@@ -1,0 +1,67 @@
+#!/bin/bash
+
+## ChatGPT translated code from BP 2020, removed about 400 MB at the start
+## Probably not efficient or working properly, but didnt break anything
+## Would be good to figure out and document it
+
+# Remove temp files
+rm -rfv /var/cache/*
+
+# Remove manual pages and documentation files
+rm -rfv /usr/share/doc/
+rm -rfv /usr/share/man/
+rm -rfv /usr/share/info
+
+# Determine the system language
+system_lang=$(locale | cut -f2 -d= | cut -f1 -d. | head -n 1)
+
+# Remove unused localizations
+for target in $(find /usr/share/locale -maxdepth 1 -not -name "$system_lang*"); do
+    rm -fv "$target/LC_MESSAGES/*"
+done
+
+# Define a function to remove multiple files
+function remove {
+    for target in "$@"; do
+        rm -fv "$target"
+    done
+}
+
+DIR1=$HOME/all_modules.txt
+DIR2=$HOME/current_modules.txt
+
+find /lib/modules/$(uname -r) -type f -name '*.ko*' > "$DIR1"
+
+# Finds modules that are not loaded into the kernel and deletes them
+
+for module in $(lsmod | cut -f1 -d" " | tail -n +2); do
+    filename=$(modinfo "$module" -n)
+    echo "$filename" >> "$DIR2"
+done
+
+sort "$DIR1" | uniq > file1.sorted
+sort "$DIR2" | uniq > file2.sorted
+
+remove $(comm -23 file1.sorted file2.sorted)
+
+remove $(find /usr/lib/firmware -atime +2)
+
+find /boot -maxdepth 1 -type f -name '*rescue*' -delete
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# !!!!DOESNT WORK!!!!
+# Remove packages not required by any other package
+for package in $(dpkg-query -f '${Package}\n' -W); do
+    echo "What requires package ${package}:"
+    mapfile -t output < <(apt-cache rdepends --installed "$package" 2>/dev/null)
+
+    if [ ${#output[@]} -eq 0 ]; then
+        echo "Remove package ${package}"
+        apt-get -y remove "$package"
+    elif [ ${#output[@]} -eq 1 ]; then
+        if [ "${output[0]}" == "$package" ]; then
+            echo "Remove package ${package}"
+            apt-get -y remove "$package"
+        fi
+    fi
+done
