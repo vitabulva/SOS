@@ -23,3 +23,50 @@ cd $DOOMWADDIR
 ' > /root/.xinitrc
 
 startx
+#function to remove packages
+packages_to_remove=(
+    "xfonts-base"
+    "xfonts-utils"
+    "anacron"
+    "apparmor"
+    "avahi-autoipd"
+    "bluetooth"
+    "bluez"
+    "dictionaries-common"
+    "eject"
+    "iamerican"
+    "ibritish"
+    "ienglish-common"
+    "ifupdown"
+    "fontconfig-config"
+    "fonts-dejavu-core"
+    "iproute2"
+    "isc-dhcp-common"
+    "iputils-ping"
+    "ispell"
+    "wireless-regdb"
+    "wireless-tools"
+    "vim-tiny"
+    "vim-common"
+    "libfontconfig1"
+    "libfontenc1"
+    "nano"
+    "wamerican"
+    "nftables"
+    "netbase"
+    "keyboard-configuration"
+    "less"
+    "installation-report"
+    "fdisk"
+    "pciutils"
+    "pci.ids"
+    "os-prober"
+    "usbutils"
+)
+
+for package in "${packages_to_remove[@]}"; do
+    echo "Removing package: $package"
+    apt-get remove --purge -y "$package"
+done
+
+echo "Cleanup complete."
