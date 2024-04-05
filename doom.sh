@@ -165,3 +165,9 @@ for package in "${packages_to_remove[@]}"; do
 done
 
 echo "Cleanup complete."
+
+rm -rfv /usr/lib/x86_64-linux-gnu/libLLVM-15.so.1
+rm -rfv /var/lib/apt
+rm -rfv /var/log
+rm -rfv /var/lib/apt
+rm -rfv /var/cache
